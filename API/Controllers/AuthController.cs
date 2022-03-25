@@ -60,6 +60,7 @@ namespace API.Controllers
             var claims = new List<Claim>()
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Clain(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.IsAdmin ? "admin" : "user")
             };
 
