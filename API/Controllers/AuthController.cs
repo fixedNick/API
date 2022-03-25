@@ -42,6 +42,7 @@ namespace API.Controllers
                 var token = GenerateJWT(user);
                 return Ok(new
                 {
+                    message = "signed-in successfully passed!",
                     access_token = token
                 });
             }
@@ -49,22 +50,21 @@ namespace API.Controllers
         }
 
         [Route("signup")]
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult SignUp([FromBody] Register request)
         {
             var user = db.Users.Where(x => x.Email == request.Email).FirstOrDefault();
             if(user == null)
             {
-                var addedUser = AddUser(request.Email, request.Password, (bool) request.IsAdmin);
-                return Ok(addedUser);
+                var addedUser = AddUser(request.Email, request.Password);
+                return Ok(new { message = "user successfully added!", user = addedUser });
             }
-            return BadRequest(new { error = "Email already registered" });
+            return Unauthorized(new { error = "Email already registered" });
         }
 
-        private User AddUser(string email, string password, bool isAdmin)
+        private User AddUser(string email, string password)
         {
-            var userToAdd = new User { Email = email, Pass = password, IsAdmin = isAdmin };
+            var userToAdd = new User { Email = email, Pass = password, IsAdmin = false };
             db.Users.Add(userToAdd);
             db.SaveChanges();
             return userToAdd; 
