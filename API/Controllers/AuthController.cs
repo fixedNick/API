@@ -28,14 +28,14 @@ namespace API.Controllers
             }
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<User>>> Get()
-        //    => await db.Users.ToListAsync();
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> Get()
+            => await db.Users.ToListAsync();
 
 
-        [Route("login")]
+        [Route("signin")]
         [HttpPost]
-        public IActionResult Login([FromBody] Login request)
+        public IActionResult SignIn([FromBody] Login request)
         {
             var user = AuthUser(request.Email, request.Password);
             if (user != null)
@@ -49,8 +49,29 @@ namespace API.Controllers
             return Unauthorized(); // 401
         }
 
+        [Route("signup")]
+        [HttpPost]
+        public IActionResult SignUp([FromBody] Register request)
+        {
+            var user = db.Users.Where(x => x.Email == request.Email).FirstOrDefault();
+            if(user == null)
+            {
+                var addedUser = AddUser(request.Email, request.Password, (bool) request.IsAdmin);
+                return Ok(addedUser);
+            }
+            return BadRequest(new { error = "Email already registered" });
+        }
+
+        private User AddUser(string email, string password, bool isAdmin)
+        {
+            var userToAdd = new User { Email = email, Pass = password, IsAdmin = isAdmin };
+            db.Users.Add(userToAdd);
+            db.SaveChanges();
+            return userToAdd; 
+        }
+
         private User AuthUser(string email, string pass)
-            => db.Users.SingleOrDefault(u => u.Email == email && u.Pass == pass);
+            => db.Users.Where(u => u.Email == email && u.Pass == pass).FirstOrDefault();
 
         private string GenerateJWT(User user)
         {
