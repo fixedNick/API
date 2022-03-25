@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,9 @@ namespace API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        IOptions<AuthOptions> authOpts;
         UsersContext db;
-        public AuthController(UsersContext context, IOptions<AuthOptions> authOpts)
+        public AuthController(UsersContext context)
         {
-            this.authOpts = authOpts;
             db = context;
             if (db.Users.Any() == false)
             {
@@ -50,6 +49,7 @@ namespace API.Controllers
         }
 
         [Route("signup")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult SignUp([FromBody] Register request)
         {
@@ -75,8 +75,7 @@ namespace API.Controllers
 
         private string GenerateJWT(User user)
         {
-            var authParams = authOpts.Value;
-            var secretKey = authParams.GetSymmetricSecurityKey();
+            var secretKey = AuthOptions.GetSymmetricSecurityKey();
             var creds = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>()
             {
@@ -86,10 +85,10 @@ namespace API.Controllers
             };
 
             var token = new JwtSecurityToken(
-                    authParams.Issuer,
-                    authParams.Audience,
+                    AuthOptions.ISSUER,
+                    AuthOptions.AUDIENCE,
                     claims,
-                    expires: DateTime.UtcNow.AddMinutes(authParams.TokenLifetime),
+                    expires: DateTime.UtcNow.AddMinutes(AuthOptions.LIFETIME),
                     signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
