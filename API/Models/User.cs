@@ -1,4 +1,7 @@
-﻿namespace API.Models
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Models
 {
     public class User
     {
@@ -6,5 +9,33 @@
         public string Email { get; set; }
         public string Pass { get; set; }
         public bool IsAdmin { get; set; }
+        public string Trophies { get; set; } = "";
+
+        [NotMapped]
+        private List<Trophie> TrophiesList { get; set; } = new List<Trophie>();
+
+        // Добавляем новое достижение
+        public bool AddTrophie(Trophie trophie)
+        {
+            if(TrophiesList.Contains(trophie))
+                return false;
+
+            TrophiesList.Add(trophie);
+            Trophies = JsonConvert.SerializeObject(TrophiesList, Formatting.Indented);
+            return true;
+        }
+
+        // Удаляем достижение по его названию
+        public bool RemoveTrophieByName(string name)
+        {
+            int? trophieId = TrophiesList.Where(x => x.Name == name).FirstOrDefault().Id;
+            if (trophieId == null)
+                return false;
+
+            TrophiesList.Remove(TrophiesList.Where(x => x.Id == trophieId).FirstOrDefault());
+            Trophies = JsonConvert.SerializeObject(TrophiesList, Formatting.Indented);
+            return true;
+        }
+
     }
 }

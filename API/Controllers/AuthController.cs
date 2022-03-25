@@ -27,35 +27,6 @@ namespace API.Controllers
             }
         }
 
-        // GET - Method ONLY for test
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
-            => await db.Users.ToListAsync();
-
-        [Route("GetAllUsers")]
-        [Authorize(Roles = "admin")]
-        [HttpPost]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
-            => await db.Users.ToListAsync();
-
-        [Route("DeleteUser")]
-        [Authorize(Roles = "admin")]
-        [HttpPost]
-        public IActionResult DeleteUser([FromBody] Delete deleteData)
-        {
-            var user = db.Users.Where(x => x.Email == deleteData.Email).FirstOrDefault();
-            if(user == null)
-                return BadRequest(new { 
-                    message = $"user with email {deleteData.Email} didn't found"
-                });
-
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return Ok(new {
-                message = $"User with email {deleteData.Email} successfully deleted!"
-            });
-        }
-
         [Route("SignIn")]
         [HttpPost]
         public IActionResult SignIn([FromBody] Login request)
