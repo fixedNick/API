@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "8d380a68-f9a1-4472-859e-5453fe52163f",
+		"name": "API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sign-in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"konst\",\r\n    \"password\": \"321\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7062/api/Auth/signin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7062",
+					"path": [
+						"api",
+						"Auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign-up as admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjMwOTY0LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.DVq6CO3dBN0i5VoVJi1KVK6S83U87Az_3On4Ukti5fg",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"newuser@gmail.com\",\r\n    \"password\": \"12334\",\r\n    \"isAdmin\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7062/api/Auth/signup",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7062",
+					"path": [
+						"api",
+						"Auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7062/api/Auth",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7062",
+					"path": [
+						"api",
+						"Auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign-up as user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvbnN0Iiwic3ViIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2NDgyMzEwOTAsImlzcyI6ImF1dGhTZXJ2ZXIiLCJhdWQiOiJyZXNvdXJjZVNlcnZlciJ9.PinF3f_ZySOJBGh3eekg336nXsVFsu_KMRbP7c0eKx8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"newuser@gmail.com\",\r\n    \"password\": \"12334\",\r\n    \"isAdmin\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7062/api/Auth/signup",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7062",
+					"path": [
+						"api",
+						"Auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
