@@ -32,12 +32,12 @@ namespace API.Controllers
 
         [Route("DeleteUser")]
         [Authorize(Roles = "admin")]
-        [HttpPost]
+        [HttpDelete]
         public IActionResult DeleteUser([FromBody] Delete deleteData)
         {
             var user = usersDb.Users.Where(x => x.Email == deleteData.Email).FirstOrDefault();
             if (user == null)
-                return BadRequest(new
+                return NotFound(new
                 {
                     message = $"user with email {deleteData.Email} didn't found"
                 });
@@ -47,6 +47,27 @@ namespace API.Controllers
             return Ok(new
             {
                 message = $"User with email {deleteData.Email} successfully deleted!"
+            });
+        }
+
+        [Route("UpdateUser")]
+        [Authorize(Roles = "admin")]
+        [HttpPut]
+        public IActionResult UpdateUser([FromBody] UpdateUser updateInfo)
+        {
+            var user = usersDb.Users.Where(u => u.Email == updateInfo.Email).FirstOrDefault();
+
+            if (updateInfo.IsAdmin == null)
+                return BadRequest(new { error = "Field 'IsAdmin' required"});
+
+            if (user == null)
+                return NotFound(new { message = $"User with email '{updateInfo.Email}' not found"});
+            user.IsAdmin = (bool)updateInfo.IsAdmin;
+            usersDb.Update(user);
+            usersDb.SaveChanges();
+            return Ok(new { 
+                message = "User info updated successfully!", 
+                users = usersDb.Users
             });
         }
 
@@ -64,6 +85,43 @@ namespace API.Controllers
             trophiesDb.SaveChanges();
             return Ok(new { 
                 message = $"Trophie {trophie.Name} successfully Added!"
+            });
+        }
+
+        [Route("DeleteTrophie")]
+        [Authorize(Roles = "admin")]
+        [HttpDelete]
+        public IActionResult DeleteTrophie([FromBody] Trophie tr)
+        {
+            var trop = trophiesDb.Trophies.Where(t => t.Name == tr.Name).FirstOrDefault();
+            if (trop == null)
+                return NotFound(new { 
+                    message = "Trophie with that name doesn't exists"
+                });
+
+            trophiesDb.Trophies.Remove(trop);
+            trophiesDb.SaveChanges();
+            return Ok(new { 
+                message = $"Trophie '{tr.Name}' have been deleted"
+            });
+        }
+
+        [Route("UpdateTrophie")]
+        [Authorize(Roles = "admin")]
+        [HttpPut]
+        public IActionResult UpdateTrophie([FromBody] UpdateTrophie updateInfo)
+        {
+            var trop = trophiesDb.Trophies.Where(t => t.Name == updateInfo.OldName).FirstOrDefault();
+            if (trop == null)
+                return NotFound(new
+                {
+                    message = "Trophie with that name doesn't exists"
+                });
+
+            trop.Name = updateInfo.NewName;
+            trophiesDb.SaveChanges();
+            return Ok(new { 
+                TableView = trophiesDb.Trophies 
             });
         }
     }
