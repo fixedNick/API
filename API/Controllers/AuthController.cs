@@ -31,6 +31,9 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult SignIn([FromBody] Login request)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == true)
+                return BadRequest(new { error = "Вы уже авторизованы" });
+
             var user = AuthUser(request.Email, request.Password);
             if (user != null)
             {
@@ -53,6 +56,9 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult SignUp([FromBody] Register request)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == true)
+                return BadRequest(new { error = "Вы уже авторизованы" });
+
             var user = db.Users.Where(x => x.Email == request.Email).FirstOrDefault();
             if (user == null)
             {
