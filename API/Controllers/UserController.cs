@@ -24,6 +24,9 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult GetAllTrophies()
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             return Ok(TrophieDb.Trophies);
         }
 
@@ -32,6 +35,9 @@ namespace API.Controllers
         [HttpPut]
         public IActionResult AddTrophie(int id)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             var trophie = TrophieDb.Trophies.Where(t => t.Id == id).FirstOrDefault();
             if (trophie == null)
                 return NotFound(new { error = $"Trophie with id: '{id}' not found" });

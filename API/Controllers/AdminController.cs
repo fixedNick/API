@@ -19,22 +19,25 @@ namespace API.Controllers
             trophiesDb = tcontext;
         }
 
-        // GET - Method ONLY for test
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
-            => await usersDb.Users.ToListAsync();
-
         [Route("GetAllUsers")]
         [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
-            => await usersDb.Users.ToListAsync();
+        {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
+            return await usersDb.Users.ToListAsync();
+        }
 
         [Route("DeleteUser")]
         [Authorize(Roles = "admin")]
         [HttpDelete]
         public IActionResult DeleteUser([FromBody] Delete deleteData)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             var user = usersDb.Users.Where(x => x.Email == deleteData.Email).FirstOrDefault();
             if (user == null)
                 return NotFound(new
@@ -55,6 +58,9 @@ namespace API.Controllers
         [HttpPut]
         public IActionResult UpdateUser([FromBody] UpdateUser updateInfo)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             var user = usersDb.Users.Where(u => u.Email == updateInfo.Email).FirstOrDefault();
 
             if (updateInfo.IsAdmin == null)
@@ -76,6 +82,9 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult CreateTrophie([FromBody] Trophie trophie)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             if (trophiesDb.Trophies.Where(t => t.Name == trophie.Name).FirstOrDefault() != null)
                 return BadRequest(new {
                     message = "Trophie with that name already exists"
@@ -93,6 +102,9 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult DeleteTrophie([FromBody] Trophie tr)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             var trop = trophiesDb.Trophies.Where(t => t.Name == tr.Name).FirstOrDefault();
             if (trop == null)
                 return NotFound(new { 
@@ -111,6 +123,9 @@ namespace API.Controllers
         [HttpPut]
         public IActionResult UpdateTrophie([FromBody] UpdateTrophie updateInfo)
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
             var trop = trophiesDb.Trophies.Where(t => t.Name == updateInfo.OldName).FirstOrDefault();
             if (trop == null)
                 return NotFound(new
