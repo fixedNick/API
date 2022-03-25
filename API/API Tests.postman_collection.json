@@ -36,47 +36,6 @@
 			"response": []
 		},
 		{
-			"name": "sign-up as admin",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjMwOTY0LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.DVq6CO3dBN0i5VoVJi1KVK6S83U87Az_3On4Ukti5fg",
-						"type": "text"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"newuser@gmail.com\",\r\n    \"password\": \"12334\",\r\n    \"isAdmin\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:7062/api/Auth/signup",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7062",
-					"path": [
-						"api",
-						"Auth",
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GetAllUsers",
 			"request": {
 				"method": "GET",
@@ -97,7 +56,7 @@
 			"response": []
 		},
 		{
-			"name": "sign-up as user",
+			"name": "sign-up",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -109,12 +68,13 @@
 					{
 						"key": "Authorization",
 						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvbnN0Iiwic3ViIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2NDgyMzEwOTAsImlzcyI6ImF1dGhTZXJ2ZXIiLCJhdWQiOiJyZXNvdXJjZVNlcnZlciJ9.PinF3f_ZySOJBGh3eekg336nXsVFsu_KMRbP7c0eKx8",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"newuser@gmail.com\",\r\n    \"password\": \"12334\",\r\n    \"isAdmin\": true\r\n}",
+					"raw": "{\r\n    \"email\": \"1newuser@gmail.com\",\r\n    \"password\": \"12334\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,6 +94,50 @@
 						"signup"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers without token (401)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvbnN0Iiwic3ViIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2NDgyMzIzNjIsImlzcyI6ImF1dGhTZXJ2ZXIiLCJhdWQiOiJyZXNvdXJjZVNlcnZlciJ9.ETTx2JgQ993fWmHcJ5GiE521Se2AZv3eN2GJU289OKo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:7062/api/Auth/getallusers",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7062",
+					"path": [
+						"api",
+						"Auth",
+						"getallusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers as ADMIN/USER(403) example",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}

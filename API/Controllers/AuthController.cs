@@ -27,10 +27,16 @@ namespace API.Controllers
             }
         }
 
+        // GET - Method ONLY for test
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
             => await db.Users.ToListAsync();
 
+        [Route("getallusers")]
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+            => await db.Users.ToListAsync();
 
         [Route("signin")]
         [HttpPost]
@@ -54,7 +60,7 @@ namespace API.Controllers
         public IActionResult SignUp([FromBody] Register request)
         {
             var user = db.Users.Where(x => x.Email == request.Email).FirstOrDefault();
-            if(user == null)
+            if (user == null)
             {
                 var addedUser = AddUser(request.Email, request.Password);
                 return Ok(new { message = "user successfully added!", user = addedUser });
@@ -67,7 +73,7 @@ namespace API.Controllers
             var userToAdd = new User { Email = email, Pass = password, IsAdmin = false };
             db.Users.Add(userToAdd);
             db.SaveChanges();
-            return userToAdd; 
+            return userToAdd;
         }
 
         private User AuthUser(string email, string pass)
