@@ -38,6 +38,8 @@ namespace API.Controllers
                 responseMessage += user.IsAdmin ? "Admin" : "User";
 
                 var token = GenerateJWT(user);
+
+                Response.Cookies.Append("Id", user.Id.ToString());
                 return Ok(new
                 {
                     message = responseMessage,
@@ -55,9 +57,17 @@ namespace API.Controllers
             if (user == null)
             {
                 var addedUser = AddUser(request.Email, request.Password);
-                return Ok(new { message = "user successfully added!", user = addedUser });
+                return Ok(new { message = "user successfully registered!", user = addedUser });
             }
             return Unauthorized(new { error = "Email already registered" });
+        }
+
+        [Route("Logout")]
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("Id");
+            return Unauthorized();
         }
 
         private User AddUser(string email, string password)

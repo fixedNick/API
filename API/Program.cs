@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<UsersContext>(opts => opts.UseSqlServer(builder.Configuration.GetConnectionString("UsersContext")));
 builder.Services.AddDbContext<TrophieContext>(opts => opts.UseSqlServer(builder.Configuration.GetConnectionString("TrophieContext")));
 
+
 builder.Services.AddCors(opts => opts.AddDefaultPolicy(
         b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 

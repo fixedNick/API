@@ -8,6 +8,8 @@ namespace API.Data
         public UsersContext(DbContextOptions<UsersContext> opts) : base(opts)
         {
             Database.EnsureCreated();
+            foreach (var u in Users)
+                u.InitializeTrophiesList();
         }
         public DbSet<User> Users { get; set; }
     }

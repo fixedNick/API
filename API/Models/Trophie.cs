@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Models
 {
@@ -7,5 +8,8 @@ namespace API.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+
+        public static Trophie GetTrophieById(TrophieContext context, int id)
+            => context.Trophies.Where(t => t.Id == id).FirstOrDefault();
     }
 }

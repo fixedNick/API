@@ -14,10 +14,15 @@ namespace API.Models
         [NotMapped]
         private List<Trophie> TrophiesList { get; set; } = new List<Trophie>();
 
+        public void InitializeTrophiesList()
+        {
+            TrophiesList = JsonConvert.DeserializeObject<List<Trophie>>(Trophies);
+        }
+
         // Добавляем новое достижение
         public bool AddTrophie(Trophie trophie)
         {
-            if(TrophiesList.Contains(trophie))
+            if (TrophiesList.Where(t => t.Name == trophie.Name).FirstOrDefault() != null)
                 return false;
 
             TrophiesList.Add(trophie);
