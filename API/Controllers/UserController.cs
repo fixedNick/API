@@ -68,5 +68,31 @@ namespace API.Controllers
                 message = $"Trophie with name '{trophieById} successfully added to user with email '{user.Email}'"
             });
         }
+
+        [Route("RemoveTrophie/{id}")]
+        [Authorize(Roles = "admin,user")]
+        [HttpPut]
+        public IActionResult RemoveTrophie(int id)
+        {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie_uid) == false)
+                return BadRequest(new { error = "Вы не авторизованы" });
+
+            // LINQ Select & Where - А мог ли я придумать применение тупее?
+
+            var user = UsersDb.Users.Where(u => u.Id == Convert.ToInt32(cookie_uid)).FirstOrDefault();
+            var trophie = user.TrophiesList.Where(t => t.Id == id).FirstOrDefault();
+            if (trophie == null)
+                return NotFound(new { error = $"User '{user.Email}' doesn't have trophie with id'{id}'" });
+
+            var trophieName = trophie.Name;
+
+            user.RemoveTrophieByName(trophieName);
+
+            UsersDb.SaveChanges();
+            return Ok(new
+            {
+                message = $"Trophie '{trophieName}' removed from account '{user.Email}'"
+            });
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace API.Models
         public string Trophies { get; set; } = "";
 
         [NotMapped]
-        private List<Trophie> TrophiesList { get; set; } = new List<Trophie>();
+        public List<Trophie> TrophiesList { get; set; } = new List<Trophie>();
 
         public void InitializeTrophiesList()
         {
