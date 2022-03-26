@@ -69,11 +69,15 @@ namespace API.Controllers
         }
 
         [Route("Logout")]
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         public IActionResult Logout()
         {
+            if (Request.Cookies.TryGetValue("Id", out string? cookie_uid) == false)
+                return Unauthorized();
+
             Response.Cookies.Delete("Id");
-            return Unauthorized();
+            return Ok(new { message = "Unathorized successfully!"});
         }
 
         private User AddUser(string email, string password)
