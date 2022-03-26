@@ -25,7 +25,7 @@ namespace API.Controllers
         public IActionResult GetAllTrophies()
         {
             if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
-                return BadRequest(new { error = "Вы не авторизованы" });
+                return Unauthorized(new { error = "Вы не авторизованы" });
 
             return Ok(TrophieDb.Trophies);
         }
@@ -36,7 +36,7 @@ namespace API.Controllers
         public IActionResult AddTrophie(int id)
         {
             if (Request.Cookies.TryGetValue("Id", out string? cookie) == false)
-                return BadRequest(new { error = "Вы не авторизованы" });
+                return Unauthorized(new { error = "Вы не авторизованы" });
 
             var trophie = TrophieDb.Trophies.Where(t => t.Id == id).FirstOrDefault();
             if (trophie == null)
@@ -65,7 +65,7 @@ namespace API.Controllers
             UsersDb.SaveChanges();
             return Ok(new
             {
-                message = $"Trophie with name '{trophieById} successfully added to user with email '{user.Email}'"
+                message = $"Trophie with name '{trophieById.Name} successfully added to user with email '{user.Email}'"
             });
         }
 
@@ -75,7 +75,7 @@ namespace API.Controllers
         public IActionResult RemoveTrophie(int id)
         {
             if (Request.Cookies.TryGetValue("Id", out string? cookie_uid) == false)
-                return BadRequest(new { error = "Вы не авторизованы" });
+                return Unauthorized(new { error = "Вы не авторизованы" });
 
             // LINQ Select & Where - А мог ли я придумать применение тупее?
 
