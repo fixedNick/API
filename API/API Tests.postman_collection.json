@@ -6,140 +6,482 @@
 	},
 	"item": [
 		{
-			"name": "sign-in",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"konst\",\r\n    \"password\": \"321\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "DeleteUser",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"anas.efi@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/DeleteUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"DeleteUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllUsers as ADMIN(200)/USER(403) example",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjQzMjkxLCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.p2j6O3K23VwTZ0z966zPXmxvXOdx_89MObsHSDe_Vro",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/getallusers",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"getallusers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllUsers without token (401)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/getallusers",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"getallusers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjM3NTU1LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.m3wuStAW9_lPYddU0rO1YILo-S3JEzrYOgWpSnMuWOw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/UpdateUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"UpdateUser"
+									]
+								}
+							},
+							"response": []
 						}
-					}
+					]
 				},
-				"url": {
-					"raw": "https://localhost:7062/api/Auth/signin",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7062",
-					"path": [
-						"api",
-						"Auth",
-						"signin"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllUsers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:7062/api/Auth",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7062",
-					"path": [
-						"api",
-						"Auth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "sign-up",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvbnN0Iiwic3ViIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2NDgyMzEwOTAsImlzcyI6ImF1dGhTZXJ2ZXIiLCJhdWQiOiJyZXNvdXJjZVNlcnZlciJ9.PinF3f_ZySOJBGh3eekg336nXsVFsu_KMRbP7c0eKx8",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"1newuser@gmail.com\",\r\n    \"password\": \"12334\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Trophies",
+					"item": [
+						{
+							"name": "CreateTrophie",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ez\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/CreateTrophie",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"CreateTrophie"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteTrophie",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ez\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/deletetrophie",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"deletetrophie"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateTrophie",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newName\": \"AI work with Big Data courses\",\r\n    \"oldName\": \"Bacheloar Degree of SPBGU\"    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7062/api/admin/UpdateTrophie",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7062",
+									"path": [
+										"api",
+										"admin",
+										"UpdateTrophie"
+									]
+								}
+							},
+							"response": []
 						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:7062/api/Auth/signup",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7062",
-					"path": [
-						"api",
-						"Auth",
-						"signup"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllUsers without token (401)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
+				},
+				{
+					"name": "GetAllUsersAndAllTrophies",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvbnN0Iiwic3ViIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2NDgyMzIzNjIsImlzcyI6ImF1dGhTZXJ2ZXIiLCJhdWQiOiJyZXNvdXJjZVNlcnZlciJ9.ETTx2JgQ993fWmHcJ5GiE521Se2AZv3eN2GJU289OKo",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:7062/api/Auth/getallusers",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7062",
-					"path": [
-						"api",
-						"Auth",
-						"getallusers"
-					]
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "GetAllUsers as ADMIN/USER(403) example",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "Auth",
+			"item": [
+				{
+					"name": "sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"anast\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7062/api/Auth/signin",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7062",
+							"path": [
+								"api",
+								"Auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign-up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvbnN0Iiwic3ViIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJleHAiOjE2NDgyMzEwOTAsImlzcyI6ImF1dGhTZXJ2ZXIiLCJhdWQiOiJyZXNvdXJjZVNlcnZlciJ9.PinF3f_ZySOJBGh3eekg336nXsVFsu_KMRbP7c0eKx8",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"1newuser@gmail.com\",\r\n    \"password\": \"12334\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7062/api/Auth/signup",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7062",
+							"path": [
+								"api",
+								"Auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetAllTrophies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuYXN0Iiwic3ViIjoiMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNjQ4MjY3NjY4LCJpc3MiOiJhdXRoU2VydmVyIiwiYXVkIjoicmVzb3VyY2VTZXJ2ZXIifQ.0TYBrXoRJetgLmhVlkMLnAsjA99vUkaX5JMXfn5ZxjY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:7062/api/User/GetAllTrophies",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7062",
+							"path": [
+								"api",
+								"User",
+								"GetAllTrophies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddTrophie",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveTrophie",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
